@@ -1,0 +1,19 @@
+{
+  "lookup": {
+    "eJyLrq6NBQAEOAGx": "action_listen",
+    "eJyLrq7VUaguKEoti09MLsnMz7NSqIYw4vMSc1OtFKCcnMziktQ8oNrS4tQioJrMPCC3xEohvSg1taS2NhYA6dwbhQ==": "utter_greet",
+    "eJyLrq7VUaguKEoti09MLsnMz7NSqIYw4vMSc1OtFKCcnMziktQ8oNrS4tQioJrMPCC3xEohvSg1taSWgBmlJSWpRfEQpbhMiAUAQvc0lw==": "action_listen",
+    "eJyLrq7VUaguKEoti09MLsnMz7NSqIYw4vMSc1OtFKCcnMziktQ8oNrS4tQioJrMPCC3xEohvSg1taSWgBmlJSWpRfEQpeSZQMAVGYkFBZW1tbEArqNOdg==": "utter_happy",
+    "eJyLrq7VUaguKEoti09MLsnMz7NSqIYw4vMSc1OtFKCcnMziktQ8oNrS4tQioJrMPCC3xEohvSg1taSWgBmlJSWpRfEQpeSZQMAVGYkFBZXEuQKiFJcJsQAr3Gee": "action_listen",
+    "eJyLrq7VUaguKEoti09MLsnMz7NSqIYw4vMSc1OtFKCcnMziktQ8oNrS4tQioJrMPCC3xEohvSg1taSWgBmlJSWpRfEQpeSZQMAVxYkptbWxABI1TYw=": "utter_sad",
+    "eJyLrq7VUaguKEoti09MLsnMz7NSqIYw4vMSc1OtFKCcnMziktQ8oNrS4tQioJrMPCC3xEohvSg1taSWgBmlJSWpRfEQpeSZQMAVxYkpxLkBpBC77lgAtr1k4A==": "utter_fact-32",
+    "eJyLrq7VUaguKEoti09MLsnMz7NSqIYw4vMSc1OtFKCcnMziktQ8oNrS4tQioJrMPCC3xEohvSg1taSWgBmlJSWpRfEQpeSZQMAVxYkpxLkBpJB83WlAMV1jIxwmxAIA6VR9LA==": "action_listen",
+    "eJyLrq7VUaguKEoti09MLsnMz7NSqIYw4vMSc1OtFKCcnMziktQ8oNrS4tQioJrMPCC3xEohvSg1taSWgBmlJSWpRfEQpeSZQMAVxYkpxLkBpJB83WlAMV1jI7JMIOCDkozEvOzi2tpYADU4l3I=": "utter_thanks",
+    "eJyLrq7VUaguKEoti09MLsnMz7NSqIYw4vMSc1OtFKCcnMziktQ8oNrS4tQioJrMPCC3xEohvSg1taSWgBmlJSWpRfEQpeSZQMAVxYkpxLkBpJB83WlAMV1jI7JMIOCDkozEvOxi4pwBVYvTjFgA57OxaA==": "action_listen",
+    "eJyLrq7VUaguKEoti09MLsnMz7NSqIYw4vMSc1OtFKCcnMziktQ8oNrS4tQioJrMPCC3xEohvSg1taSWgBmlJSWpRfEQpeSZQMAVxaWZyZkpqbW1sQBMp086": "utter_scared",
+    "eJydjlEKgCAQBa/iATqBV4kQ0Ucs1Bbr2o949wT7zujvDQzDm0udTDkFl/NB6WBrSh+O/Q5rHtgoKbi5OUGaQ9xQrVkF0DpoZFWI6+q/wuBFyhQo4tuPFLwgvkSWGzX2aXY=": "utter_depressed",
+    "eJyljlEKgCAQBa/iATqBV4kQ0UcslMXu2o949wT7rqi/NzAMbyx1MGVnHM4HpS1ZU/pwya+w5oKFRJGamwXcHEoN1ZqZAa0PjawKdl39Vnh4IZkCRbz7IcEz4s9IRFNEbjvTCcSOhP8=": "action_listen",
+    "eJylj1EKwyAQRK/iAXICr1KKiA7N0mZTdtf8iHevkP4b4t8MPB4zj9oWV7+CI8RktLN39QyB4wbv/uVDauDOFoV0hrhX8+4lgLWBo5hBwoneMwxWaKFEGdd2aIqCPCnJ6IjqhGdwydbIb23t+QMsb59F": "utter_thanks",
+    "eJylj0EKwzAMBL/iB/QF/kooxthLKtooQZJ7Mfl7Dcm1OMQ3LQzDaKr7w9VN8A0xGa3sXT2OwHGBd+f4kBq4sUUhjSFu07ybBbC94yhmkHCg9wydCi2UKONah6YoyIOSjIaoDng6L9kr8luvxZzsX8fzB/MUuTs=": "action_listen"
+  }
+}

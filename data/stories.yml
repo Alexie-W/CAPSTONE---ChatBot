@@ -1,0 +1,30 @@
+version: "3.1"
+
+stories:
+
+- story: happy path
+  steps:
+  - intent: greeting
+  - action: utter_greeting
+  - intent: happy
+  - action: utter_happy
+
+- story: sad path 1
+  steps:
+  - intent: greeting
+  - action: utter_greeting
+  - intent: sad
+  - action: utter_sad
+  - action: utter_fact-32
+  - intent: thanks
+  - action: utter_thanks
+
+- story: sad path 2
+  steps:
+  - intent: greeting
+  - action: utter_greeting
+  - intent: suicide
+  - action: utter_scared
+  - action: utter_depressed
+  - intent: thanks
+  - action: utter_thanks

@@ -1,0 +1,465 @@
+version: "3.1"
+
+nlu:
+- intent: about
+  examples: |
+    - Tell me about yourself
+    - Tell me more about yourself.
+    - What are you?
+    - What is your name?
+    - What should I call you?
+    - What's your name?
+    - Who are you?
+    - Who you are?
+
+- intent: anxious
+  examples: |
+    - Can I ask you something?
+
+- intent: ask
+  examples: |
+    - I feel so anxious.
+    - I'm so anxious because of 
+
+- intent: casual
+  examples: |
+    - Fine
+    - K
+    - nice
+    - no
+    - not really
+    - Oh I see.
+    - ok
+    - okay
+    - Whatever
+    - yeah
+    - yes
+
+- intent: death
+  examples: |
+    - My brother died
+    - My dad passed away
+    - My friend passed away
+    - My mom died
+    - My sister passed away
+    - Someone in my family died
+
+- intent: default
+  examples: |
+    - boyfriend
+    - exams
+    - family
+    - financial problems
+    - friends
+    - girlfriend
+    - money
+    - relationship
+
+- intent: bot_challenge
+  examples: |
+    - are you a bot?
+    - are you a human?
+    - am I talking to a bot?
+    - am I talking to a human?
+    - How were you created?
+    - How were you made?
+    - Who created you?
+
+- intent: depressed
+  examples: |
+    - I can't take it anymore
+    - I am so depressed
+    - I think i'm depressed.
+    - I have depression
+
+- intent: done
+  examples: |
+    - That's all.
+    - I don't have anything more to say
+    - Nothing else
+    - That's all i have to say
+    - no, that would be all
+
+- intent: fact-1
+  examples: |
+    - What is mental health?
+    - Define Mental Health
+
+- intent: fact-10
+  examples: |
+    - What causes mental illness?
+
+- intent: fact-11
+  examples: |
+    - What are some of the warning signs of mental illness?
+
+- intent: fact-12
+  examples: |
+    - Can people with mental illness recover?
+
+- intent: fact-13
+  examples: |
+    - What should I do if I know someone who appears to have the symptoms of a mental disorder?
+
+- intent: fact-14
+  examples: |
+    - How can I find a mental health professional for myself or my child?
+
+- intent: fact-15
+  examples: |
+    - What treatment options are available?
+
+- intent: fact-16
+  examples: |
+    - If I become involved in treatment, what do I need to know?
+
+- intent: fact-17
+  examples: |
+    - What is the difference between mental health professionals?
+
+- intent: fact-18
+  examples: |
+    - How can I find a mental health professional right for my child or myself?
+
+- intent: fact-19
+  examples: |
+    - Where else can I get help?
+
+- intent: fact-2
+  examples: |
+    - Why is mental health important?
+    - What is the importance of mental health?
+
+- intent: fact-20
+  examples: |
+    - What should I know before starting a new medication?
+
+- intent: fact-21
+  examples: |
+    - Where can I go to find therapy?
+
+- intent: fact-22
+  examples: |
+    - Where can I learn about types of mental health treatment?
+
+- intent: fact-23
+  examples: |
+    - What are the different types of mental health professionals?
+
+- intent: fact-24
+  examples: |
+    - Where can I go to find a support group?
+
+- intent: fact-25
+  examples: |
+    - Can you prevent mental health problems?
+
+- intent: fact-26
+  examples: |
+    - Are there cures for mental health problems?
+    - is there any cure for mental health problems?
+
+- intent: fact-27
+  examples: |
+    - What causes mental health problems?
+
+- intent: fact-28
+  examples: |
+    - What do I do if I'm worried about my mental health?
+
+- intent: fact-29
+  examples: |
+    - How do I know if I'm unwell?
+
+- intent: fact-3
+  examples: |
+    - What is Depression?
+    - Define Depression
+
+- intent: fact-30
+  examples: |
+    - How can I maintain social connections? What if I feel lonely?
+
+- intent: fact-31
+  examples: |
+    - What's the difference between anxiety and stress?
+
+- intent: fact-32
+  examples: |
+    - What's the difference between sadness and depression?
+    - difference between sadness and depression
+
+- intent: fact-5
+  examples: |
+    - How do i know if i have Depression?
+    - Am i depressed?
+    - Am i suffering from depression?
+    - Am i mentally ill?
+
+- intent: fact-6
+  examples: |
+    - What is a therapist?
+    - What does a therapist do?
+
+- intent: fact-7
+  examples: |
+    - What is therapy?
+    - Do i need therapy?
+    - Who is therapy for?
+
+- intent: fact-8
+  examples: |
+    - What does it mean to have a mental illness?
+
+- intent: fact-9
+  examples: |
+    - Who does mental illness affect?
+
+- intent: friends
+  examples: |
+    - I don't have any friends
+
+- intent: goodbye
+  examples: |
+    - Bye
+    - See you later
+    - Goodbye
+    - Au revoir
+    - Sayonara
+    - ok bye
+    - Bye then
+    - Fare thee well
+
+- intent: greeting
+  examples: |
+    - Hi
+    - Hey
+    - Is anyone there?
+    - Hi there
+    - Hello
+    - Hey there
+    - Howdy
+    - Hola
+    - Bonjour
+    - Konnichiwa
+    - Guten tag
+    - Ola
+
+- intent: happy
+  examples: |
+    - I feel great today.
+    - I am happy.
+    - I feel happy.
+    - I'm good.
+    - cheerful
+    - I'm fine
+    - I feel ok
+
+- intent: hate-me
+  examples: |
+    - You hate me
+    - I know you hate me
+    - You don't like me
+
+- intent: hate-you
+  examples: |
+    - I hate you
+    - I don't like you
+    - I don't trust you
+
+- intent: help
+  examples: |
+    - Could you help me?
+    - give me a hand please
+    - Can you help?
+    - What can you do for me?
+    - I need support
+    - I need help
+    - Support me please
+
+- intent: jokes
+  examples: |
+    - Tell me a joke
+    - Tell me another joke
+
+- intent: learn-mental-health
+  examples: |
+    - I want to learn about mental health.
+    - I want to learn more about mental health.
+    - I'm interested in learning about mental health.
+
+- intent: learn-more
+  examples: |
+    - ok sure. i would like to learn more about it.
+    - yes, i would like to learn more about it.
+    - i would like to learn more about it.
+
+- intent: location
+  examples: |
+    - Where are you?
+    - Where do you live?
+    - What is your location?
+
+- intent: meditation
+  examples: |
+    - hmmm that sounds like it could be useful to me.
+    - That sounds useful.
+
+- intent: mental-health-fact
+  examples: |
+    - Tell me a fact about mental health
+    - Tell me another fact about mental health
+
+- intent: name
+  examples: |
+    - My name is 
+    - I am name.
+    - I go by 
+
+- intent: neutral-response
+  examples: |
+    - nothing much
+
+- intent: no-approach
+  examples: |
+    - not really
+    - I guess not. All I can think about are my exams.
+    - i guess not
+
+- intent: no-response
+  examples: |
+    - 
+
+- intent: not-talking
+  examples: |
+    - I don't want to talk about it.
+    - No just stay away.
+    - I can't bring myself to open up.
+    - Just shut up
+
+- intent: pandora-useful
+  examples: |
+    - thank you very much again. i'll continue practicing meditation and focus on what i can control.
+
+- intent: problem
+  examples: |
+    - Probably because my exams are approaching. I feel stressed out because I don't think I've prepared well enough.
+    - probably because of my exams
+
+- intent: repeat
+  examples: |
+    - You already told me that
+    - You mentioned that already
+    - Why are you repeating yourself?
+
+- intent: sad
+  examples: |
+    - I am feeling lonely
+    - I am so lonely
+    - I feel down
+    - I feel sad
+    - I am sad
+    - I feel so lonely
+    - I feel empty
+    - I don't have anyone
+
+- intent: scared
+  examples: |
+    - I'm scared
+    - That sounds awful. What do i do?
+    - No i don't want to feel this way
+    - I am scared for myself
+
+- intent: skill
+  examples: |
+    - What can you do?
+
+- intent: sleep
+  examples: |
+    - I have insominia
+    - I am suffering from insomnia
+    - I can't sleep.
+    - I haven't slept for the last days.
+    - I can't seem to go to sleep.
+    - I haven't had proper sleep for the past few days.
+
+- intent: something-else
+  examples: |
+    - I want to talk about something else
+    - Let's talk about something else.
+    - Can we not talk about this?
+    - I don't want to talk about this.
+
+- intent: stressed
+  examples: |
+    - I am so stressed out
+    - I am so stressed
+    - I feel stuck
+    - I still feel stressed
+    - I am so burned out
+
+- intent: stupid
+  examples: |
+    - Are you stupid?
+    - You're crazy
+    - You are dumb
+    - Are you dumb?
+
+- intent: suicide
+  examples: |
+    - I want to kill myself
+    - I've thought about killing myself.
+    - I want to die
+    - I am going to kill myself
+    - I am going to commit suicide
+
+- intent: thanks
+  examples: |
+    - Thanks
+    - Thank you
+    - That's helpful
+    - Thanks for the help
+    - Than you very much
+
+- intent: understand
+  examples: |
+    - You don't understand me.
+    - You're just some robot. How would you know?
+    - You can't possibly know what i'm going through
+    - You're useless
+    - You can't help me
+    - Nobody understands me.
+
+
+- intent: user-advice
+  examples: |
+    - I want some advice.
+    - I need some advice.
+    - I need advice on something
+
+- intent: user-agree
+  examples: |
+    - yeah you're right. i deserve a break.
+    - Yeah you're absolutely right about that
+
+- intent: user-meditation
+  examples: |
+    - i did what you said and i feel alot better. thank you very much.
+    - I feel better now
+
+- intent: worthless
+  examples: |
+    - I feel so worthless.
+    - No one likes me.
+    - I can't do anything.
+    - I am so useless
+    - Nothing makes sense anymore
+
+- intent: wrong
+  examples: |
+    - What are you saying?
+    - That doesn't make sense
+    - Wrong response
+    - Wrong answer
+
+
