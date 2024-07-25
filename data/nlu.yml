@@ -12,14 +12,14 @@ nlu:
     - Who are you?
     - Who you are?
 
-- intent: anxious
+- intent: ask
   examples: |
     - Can I ask you something?
 
-- intent: ask
+- intent: anxious
   examples: |
-    - I feel so anxious.
-    - I'm so anxious because of 
+    - I feel so anxious [anxious](mood)
+    - I'm so anxious [anxious](mood)
 
 - intent: casual
   examples: |
