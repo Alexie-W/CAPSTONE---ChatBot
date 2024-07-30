@@ -2,10 +2,9 @@ from flask import Flask, request, jsonify, send_from_directory
 from app import create_app, db
 from app.models import Conversation, User, Goal, JournalEntry, MoodTracking, Request, Quiz, Question, Answer
 import requests
-from flask_cors import CORS
 
-app = Flask(__name__, static_folder='C:/Users/ebank/Documents/GitHub/CAPSTONE---ChatBot/CAPSTONE---ChatBot/frontend/dist', static_url_path='')
-CORS(app)
+
+app = create_app()
 
 
 @app.route('/')

@@ -10,7 +10,7 @@ load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), '.env'))
 db = SQLAlchemy()
 
 def create_app():
-    app = Flask(__name__)
+    app = Flask(__name__, static_folder='C:/Users/ebank/Documents/GitHub/CAPSTONE---ChatBot/CAPSTONE---ChatBot/frontend/dist', static_url_path='')
     app.config.from_object(Config)
     
     db.init_app(app)
