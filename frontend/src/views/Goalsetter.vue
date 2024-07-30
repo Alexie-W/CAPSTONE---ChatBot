@@ -1,0 +1,211 @@
+<template>
+  <div class="goals container">
+    <header>
+      <h1>Goals</h1>
+    </header>
+    <img :src="getImageUrl('goalbot.png')" alt="Avatar" class="avatar">
+    <form @submit.prevent="addGoal" class="form-group">
+      <input v-model="newGoal" placeholder="Set a new goal" required class="input">
+      <button type="submit" class="btn add-btn">Add Goal</button>
+    </form>
+    <ul>
+      <li v-for="goal in goals" :key="goal.id" class="goal-item">
+        <div class="goal-content">
+          <input type="checkbox" v-model="goal.completed" class="checkbox">
+          <span :class="{ completed: goal.completed }">{{ goal.text }}</span>
+        </div>
+        <div v-if="goal.completed" class="progress-tab">
+          <div class="progress-bar">
+            <div :style="{ width: getGoalProgress(goal) + '%' }" class="progress"></div>
+          </div>
+          <span>{{ getGoalProgress(goal) }}% Complete</span>
+        </div>
+        <button @click="removeGoal(goal.id)" class="btn remove-btn">✕</button>
+      </li>
+    </ul>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      newGoal: '',
+      goals: []
+    };
+  },
+  methods: {
+    addGoal() {
+      if (this.newGoal.trim() !== '') {
+        this.goals.push({ id: Date.now(), text: this.newGoal, completed: false });
+        this.newGoal = '';
+      }
+    },
+    removeGoal(id) {
+      this.goals = this.goals.filter(goal => goal.id !== id);
+    },
+    getImageUrl(image) {
+      return new URL(`../assets/images/${image}`, import.meta.url).href;
+    },
+    getGoalProgress(goal) {
+      // Example progress calculation (based on completion status)
+      return goal.completed ? 100 : 0;
+    }
+  }
+};
+</script>
+
+<style scoped>
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.goals {
+  width: 100%;
+  max-width: 600px;
+  background-color: #F5EFE6;
+  border-radius: 8px;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+h1 {
+  color: #3C2317;
+  font-size: 32px;
+  margin: 0;
+  font-family: "Copperplate", "Papyrus", fantasy;
+}
+
+.avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-top: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.form-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.input {
+  flex: 1;
+  padding: 10px;
+  margin-right: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.add-btn {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.add-btn:hover {
+  background-color: #45a049;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.goal-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  width: 100%;
+}
+
+.goal-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.checkbox {
+  margin-right: 10px;
+}
+
+.completed {
+  text-decoration: line-through;
+  color: #888;
+}
+
+.remove-btn {
+  position: absolute;
+  bottom: 1px;
+  right: 1px;
+  background-color: rgba(220, 241, 245, 0.1); /* Very transparent background */
+  color: rgba(0, 0, 0, 0.6); /* Slightly transparent color */
+  border: none;
+  border-radius: 50%;
+  width: 10px; /* Tiny button size */
+  height: 10px; /* Tiny button size */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px; /* Tiny font size */
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.remove-btn:hover {
+  background-color: rgba(165, 234, 239, 0.3); /* Slightly more visible on hover */
+}
+
+.progress-tab {
+  width: 100%;
+  margin: 5px 0; /* Reduced margin */
+  text-align: left;
+}
+
+.progress-bar {
+  width: 100%;
+  background-color: #ddd;
+  border-radius: 4px;
+  height: 10px; /* Small progress bar */
+  margin: 5px 0;
+  position: relative;
+}
+
+.progress {
+  height: 100%;
+  background-color: #4CAF50;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+span {
+  display: block;
+  margin-top: 5px;
+  font-size: 12px; /* Smaller font size for progress */
+}
+</style>
