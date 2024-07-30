@@ -22,6 +22,8 @@ export default {
         { title: "Symptom Checker", description: "Check your illness", image: 'symptomdash.png', route: '/symptomcheck' },
         { title: "Journal Entry", description: "Write down your feelings", image: 'journaldash.png', route: '/journal' },
         { title: "Goal Setting", description: "What do you want to accomplish?", image: 'goaldash.png', route: '/goalsetter' },
+        { title: "Interractive Quizzes", description: "Can you answer all the questions?", image: 'quizdash.png', route: '/quiz' },
+        { title: "Helpline Services", description: "Feel Free to reach out", image: 'helpdash.png', route: '/helpline' },
       ]
     };
   },

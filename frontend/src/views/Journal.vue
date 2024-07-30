@@ -1,8 +1,9 @@
 <template>
   <div class="journal container">
     <header>
-      <img :src="getImageUrl('journalbot.png')" alt="Avatar" class="avatar">
       <h1>Journal</h1>
+
+      <img :src="getImageUrl('journalbot.png')" alt="Avatar" class="avatar">
     </header>
     <button @click="toggleEntryBox" v-if="!showEntryBox" class="btn">Add New Entry</button>
     <div v-if="showEntryBox" class="entry-box">
@@ -50,27 +51,29 @@ export default {
 
 <style scoped>
 .container {
-  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
+  justify-content: center;
+  text-align: center;
+  height: 100vh;
   background-color: #F5EFE6;
+  padding: 20px;
   border-radius: 8px;
 }
 
 header {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
   margin-bottom: 40px;
 }
 
 .avatar {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  margin-right: 20px;
+  width: 300px; 
+  height: 300px; 
+  border-radius: 0;
+  margin-bottom: 20px;
 }
 
 h1 {
