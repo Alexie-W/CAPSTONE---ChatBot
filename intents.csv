@@ -231,3 +231,53 @@ fact-30,How can I maintain social connections? What if I feel lonely?,"[""A lot 
 fact-31,What's the difference between anxiety and stress?,"[""Stress and anxiety are often used interchangeably, and there is overlap between stress and anxiety. Stress is related to the same fight, flight, or freeze response as anxiety, and the physical sensations of anxiety and stress may be very similar. The cause of stress and anxiety are usually different, however. Stress focuses on mainly external pressures on us that we're finding hard to cope with. When we are stressed, we usually know what we're stressed about, and the symptoms of stress typically disappear after the stressful situation is over. Anxiety, on the other hand, isn't always as easy to figure out. Anxiety focuses on worries or fears about things that could threaten us, as well as anxiety about the anxiety itself. Stress and anxiety are both part of being human, but both can be problems if they last for a long time or have an impact on our well-being or daily life.""]"
 fact-32,What's the difference between sadness and depression?,"[""Sadness is a normal reaction to a loss, disappointment, problems, or other difficult situations. Feeling sad from time to time is just another part of being human. In these cases, feelings of sadness go away quickly and you can go about your daily life. Other ways to talk about sadness might be feeling low, feeling down, or feeling blue.A person may say they are feeling depressed, but if it goes away on its own and doesn't impact life in a big way, it probably isn't the illness of depression. Depression is a mental illness that affects your mood, the way you understand yourself, and the way you understand and relate to things around you. It can also go by different names, such as clinical depression, major depressive disorder, or major depression. Depression can come up for no reason, and it lasts for a long time. It's much more than sadness or low mood. People who experience depression may feel worthless or hopeless. They may feel unreasonable guilty. Some people may experience depression as anger or irritability. It may be hard to concentrate or make decisions. Most people lose interest in things that they used to enjoy and may isolate themselves from others. There are also physical signs of depression, such as problems with sleep, appetite and energy and unexplainable aches or pains. Some may experience difficult thoughts about death or ending their life (suicide). Depression lasts longer than two weeks, doesn't usually go away on its own, and impacts your life. It's a real illness, and it is very treatable. It's important to seek help if you're concerned about depression.""]"
 fact-32,difference between sadness and depression,"[""Sadness is a normal reaction to a loss, disappointment, problems, or other difficult situations. Feeling sad from time to time is just another part of being human. In these cases, feelings of sadness go away quickly and you can go about your daily life. Other ways to talk about sadness might be feeling low, feeling down, or feeling blue.A person may say they are feeling depressed, but if it goes away on its own and doesn't impact life in a big way, it probably isn't the illness of depression. Depression is a mental illness that affects your mood, the way you understand yourself, and the way you understand and relate to things around you. It can also go by different names, such as clinical depression, major depressive disorder, or major depression. Depression can come up for no reason, and it lasts for a long time. It's much more than sadness or low mood. People who experience depression may feel worthless or hopeless. They may feel unreasonable guilty. Some people may experience depression as anger or irritability. It may be hard to concentrate or make decisions. Most people lose interest in things that they used to enjoy and may isolate themselves from others. There are also physical signs of depression, such as problems with sleep, appetite and energy and unexplainable aches or pains. Some may experience difficult thoughts about death or ending their life (suicide). Depression lasts longer than two weeks, doesn't usually go away on its own, and impacts your life. It's a real illness, and it is very treatable. It's important to seek help if you're concerned about depression.""]"
+add_goal,I want to add a new goal,"['Sure, what''s your new goal?', 'Okay, tell me your new goal.']"
+add_goal,Add a new goal for me,"['Sure, what''s your new goal?', 'Okay, tell me your new goal.']"
+add_goal,Can you help me set a new goal?,"['Sure, what''s your new goal?', 'Okay, tell me your new goal.']"
+add_goal,I want to improve my daily mindfulness practice,['Sure, let's set a goal to improve your daily mindfulness practice.']
+add_goal,I want to reduce my daily stress levels,['Okay, we'll work on reducing your daily stress levels.']
+add_goal,I want to increase my physical activity,['Great, let's set a goal to increase your physical activity.']
+add_goal,I want to enhance my sleep quality,['Alright, we'll focus on enhancing your sleep quality.']
+add_goal,I want to develop a consistent journaling habit,['Good idea, let's make journaling a consistent habit.']
+add_goal,I want to practice gratitude daily,['Sure, let's set a goal to practice gratitude daily.']
+add_goal,I want to strengthen my relationships,['Let's work on strengthening your relationships.']
+add_goal,I want to learn more about mental health,['Alright, we'll set a goal to learn more about mental health.']
+add_goal,I want to manage my time more effectively,['Good goal, let's work on managing your time more effectively.']
+add_goal,I want to build a positive self-image,['Let's set a goal to build a positive self-image.']
+add_goal,I want to improve my emotional regulation skills,['Sure, let's improve your emotional regulation skills.']
+add_goal,I want to develop healthy eating habits,['Great, let's work on developing healthy eating habits.']
+add_goal,I want to reduce my screen time,['Alright, we'll focus on reducing your screen time.']
+add_goal,I want to participate in social activities more often,['Okay, let's set a goal to participate in social activities more often.']
+add_goal,I want to engage in regular relaxation techniques,['Let's set a goal to engage in regular relaxation techniques.']
+add_goal,I want to seek therapy or counseling when needed,['Good idea, let's set a goal to seek therapy or counseling when needed.']
+add_goal,I want to develop a career growth plan,['Alright, we'll work on developing a career growth plan.']
+add_goal,I want to improve my financial management skills,['Sure, let's improve your financial management skills.']
+add_goal,I want to set and achieve small personal milestones,['Let's set a goal to achieve small personal milestones.']
+add_goal,I want to volunteer and give back to the community,['Great, let's set a goal to volunteer and give back to the community.']
+view_goals,Show me my goals,"['Here are your current goals: {goals_list}']"
+view_goals,What are my current goals?,"['Here are your current goals: {goals_list}']"
+view_goals,List my goals,"['Here are your current goals: {goals_list}'']"
+add_journal_entry,I want to add a journal entry,"['Sure, what would you like to write in your journal?', 'Okay, tell me your journal entry.']"
+add_journal_entry,Add a new journal entry,"['Sure, what would you like to write in your journal?', 'Okay, tell me your journal entry.']"
+add_journal_entry,Can you help me with my journal?,"['Sure, what would you like to write in your journal?', 'Okay, tell me your journal entry.']"
+view_journal_entries,Show me my journal entries,"['Here are your journal entries: {journal_entry}']"
+view_journal_entries,What are my journal entries?,"['Here are your journal entries: {journal_entry}']"
+view_journal_entries,List my journal entries,"['Here are your journal entries: {journal_entry}']"
+add_mood_entry,I want to add a mood entry,"['Sure, how are you feeling today?', 'Okay, tell me about your mood.']"
+add_mood_entry,Add a new mood entry,"['Sure, how are you feeling today?', 'Okay, tell me about your mood.']"
+add_mood_entry,Can you track my mood?,"['Sure, how are you feeling today?', 'Okay, tell me about your mood.']"
+view_mood_entries,Show me my mood entries,"['Here are your mood entries: {mood_entries}']"
+view_mood_entries,What are my mood entries?,"['Here are your mood entries: {mood_entries}']"
+view_mood_entries,List my mood entries,"['Here are your mood entries: {mood_entries}']"
+add_request,I want to add a request,"['Sure, what do you need help with?', 'Okay, tell me about your request.']"
+add_request,Add a new request,"['Sure, what do you need help with?', 'Okay, tell me about your request.']"
+add_request,Can you help me with a request?,"['Sure, what do you need help with?', 'Okay, tell me about your request.']"
+view_requests,Show me my requests,"['Here are your requests: {list_requests}']"
+view_requests,What are my requests?,"['Here are your requests: {list_requests}']"
+view_requests,List my requests,"['Here are your requests: {list_requests}']"
+start_quiz,I want to take a quiz,"['Sure, let''s start the quiz.', 'Okay, here''s your first question: [first_question_placeholder]']"
+start_quiz,Start a new quiz,"['Sure, let''s start the quiz.', 'Okay, here''s your first question: [first_question_placeholder]']"
+start_quiz,Can you give me a quiz?,"['Sure, let''s start the quiz.', 'Okay, here''s your first question: [first_question_placeholder]']"
+view_quizzes,Show me my quizzes,"['Here are your quizzes: [list_quizzes_placeholder]']"
+view_quizzes,What are my quizzes?,"['Here are your quizzes: [list_quizzes_placeholder]']"
+view_quizzes,List my quizzes,"['Here are your quizzes: [list_quizzes_placeholder]']"
