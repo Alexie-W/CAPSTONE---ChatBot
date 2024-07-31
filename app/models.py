@@ -57,11 +57,13 @@ class Conversation(db.Model):
     CID = db.Column(db.Integer, primary_key=True)
     UID = db.Column(db.String(50), db.ForeignKey('user.UID'), nullable=False)
     conversation_date = db.Column(db.DateTime, default=db.func.current_timestamp())
+    user_input = db.Column(db.Text, nullable=False)
     conversation_text = db.Column(db.Text, nullable=False)
     user = db.relationship('User', back_populates='conversations')
 
-    def __init__(self, UID, conversation_text):
+    def __init__(self, UID, user_input, conversation_text):
         self.UID = UID
+        self.user_input = user_input
         self.conversation_text = conversation_text
 
 class Request(db.Model):

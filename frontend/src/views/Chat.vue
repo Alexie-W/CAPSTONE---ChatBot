@@ -34,7 +34,7 @@ export default {
     return {
       messages: [],
       newMessage: '',
-      userId: 1 // Replace with the actual user ID
+      userId: null
     };
   },
   created() {

@@ -1,28 +1,38 @@
 from flask import Flask, request, jsonify, send_from_directory
 from app import create_app, db
 from app.models import Conversation, User, Goal, JournalEntry, MoodTracking, Request, Quiz, Question, Answer
+from flask_cors import CORS
 import requests
 
 
 app = create_app()
-
+CORS(app)
 
 @app.route('/')
 def home():
     return send_from_directory(app.static_folder, 'index.html')
 
-@app.route('/process', methods=['POST'])
+@app.route('/chatbot', methods=['POST'])
 def process_input():
-    user_input = request.json.get('input')
-    user_id = request.json.get('user_id')  # Assuming user_id is passed in the request
+    user_input = request.json.get('message')
+    user_id = request.json.get('user_id')    
     mm_response = requests.post('http://localhost:5005/webhooks/rest/webhook', json={"message": user_input})
+    mm_response.raise_for_status()  
+
     response_data = mm_response.json()
     response = response_data[0]['text'] if response_data else "Sorry, I did not understand."
+        
+    try:
+        conversation = Conversation(UID=user_id, user_input=user_input, conversation_text=response)
+        db.session.add(conversation)
+        db.session.commit()
+    except Exception as e:
+        # Log and handle database errors
+        app.logger.error(f"Error saving conversation to database: {e}")
+        return jsonify({'response': 'Error saving conversation to database'}), 500
 
-    conversation = Conversation(UID=user_id, user_input=user_input, response_text=response)
-    db.session.add(conversation)
-    db.session.commit()
     return jsonify({'response': response})
+
 
 @app.route('/register', methods=['POST'])
 def register():
@@ -86,7 +96,7 @@ def view_goals(UID):
 @app.route('/conversations/<UID>', methods=['GET'])
 def view_conversations(UID):
     conversations = Conversation.query.filter_by(UID=UID).all()
-    entries = [{'id': conv.id, 'user_input': conv.user_input, 'response_text': conv.response_text, 'conversation_date': conv.conversation_date} for conv in conversations]
+    entries = [{'CID': conv.CID, 'user_input': conv.user_input, 'response_text': conv.response_text, 'conversation_date': conv.conversation_date} for conv in conversations]
     return jsonify({'conversations': entries})
 
 @app.route('/request', methods=['POST'])
