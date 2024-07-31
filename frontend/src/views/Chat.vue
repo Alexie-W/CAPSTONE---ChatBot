@@ -10,7 +10,7 @@
       </div>
       <div class="message-input-container">
         <MessageInput v-model="newMessage" @sendMessage="sendMessage" />
-        <SendMessageButton @sendMessage="sendMessage" />
+        <SendMessageButton class="btn" @sendMessage="sendMessage" />
       </div>
     </ChatWindow>
   </div>
@@ -34,25 +34,27 @@ export default {
     return {
       messages: [],
       newMessage: '',
-      userId: null
+      userId: '_v7ttyvkg8' // Fixed user ID
     };
   },
   created() {
-    this.fetchConversations();
+    this.fetchConversations()
+      .catch(error => console.error("Error fetching conversations:", error));
   },
   methods: {
     async fetchConversations() {
       try {
         const response = await axios.get(`/conversations/${this.userId}`);
-        const conversations = response.data.conversations;
-
-        // Format the conversations to match the message list format
-        this.messages = conversations.map(conv => {
-          return [
-            { text: conv.user_input, sender: 'user' },
-            { text: conv.response_text, sender: 'bot' }
-          ];
-        }).flat(); // Flatten the array to have a single level array
+        if (response.data && Array.isArray(response.data.conversations)) {
+          this.messages = response.data.conversations.map(conv => {
+            return [
+              { text: conv.user_input, sender: 'user' },
+              { text: conv.response_text, sender: 'bot' }
+            ];
+          }).flat(); // Flatten the array to have a single level array
+        } else {
+          console.error("Conversations data is missing or not an array.");
+        }
       } catch (error) {
         console.error("Error fetching conversations:", error);
       }
@@ -66,7 +68,7 @@ export default {
         try {
           const response = await axios.post('/chatbot', {
             message: this.newMessage,
-            user_id: this.userId // Use the actual user ID
+            user_id: '_v7ttyvkg8'
           });
 
           // Add the chatbot's response to the message list

@@ -2,31 +2,13 @@
   <div class="symptom-checker container">
     <h1>Are you feeling Unwell?</h1>
     <img :src="getImageUrl('drchopper.png')" alt="Unwell Image" class="unwell-image">
-    <h2>Let's check your symptom</h2>
+    <h2>Let's check your symptoms</h2>
+
     <div class="symptoms">
-      <div v-for="symptom in symptoms" :key="symptom.id" class="symptom card">
-        <input type="checkbox" v-model="symptom.checked" />
-        <label>{{ symptom.name }}</label>
+      <button @click="redirectToSymptomChecker" class="btn">Use External Symptom Checker</button>
+
       </div>
     </div>
-    <button @click="addSymptomRequest" class="btn">Check Symptoms</button>
-    <div v-if="results" class="results card">
-      <h2>Results</h2>
-      <p>{{ results }}</p>
-    </div>
-    <div v-if="error" class="error card">
-      <h2>Error</h2>
-      <p>{{ error }}</p>
-    </div>
-    <div v-if="entries.length" class="entries card">
-      <h2>Previous Requests</h2>
-      <ul>
-        <li v-for="entry in entries" :key="entry.RID">
-          {{ entry.symptom }} ({{ entry.request_date }})
-        </li>
-      </ul>
-    </div>
-  </div>
 </template>
 
 <script>
@@ -34,81 +16,13 @@ import axios from 'axios';
 
 export default {
   name: 'SymptomChecker',
-  data() {
-    return {
-      symptoms: [
-        { id: 1, name: 'Fever', checked: false },
-        { id: 2, name: 'Cough', checked: false },
-        { id: 3, name: 'Fatigue', checked: false },
-        { id: 4, name: 'Headache', checked: false },
-        { id: 5, name: 'Sore Throat', checked: false },
-        { id: 6, name: 'Muscle Pains', checked: false },
-      ],
-      results: null,
-      error: null,
-      entries: [],
-      UID: '12345' // Replace this with the actual user ID
-    };
-  },
   methods: {
-    async addSymptomRequest() {
-      const selectedSymptoms = this.symptoms.filter(symptom => symptom.checked).map(symptom => symptom.name);
-      if (selectedSymptoms.length === 0) {
-        this.error = 'Please select at least one symptom.';
-        return;
-      }
-
-      try {
-        const response = await axios.post('http://localhost:5000/request', {
-          UID: this.UID,
-          symptom: selectedSymptoms.join(', ')
-        });
-
-        this.results = response.data.message; // Assuming the response contains the message
-        this.error = null; // Clear any previous error
-
-        // Fetch updated list of entries
-        this.fetchEntries();
-      } catch (error) {
-        console.error('Error adding request:', error);
-        this.results = null; // Clear any previous results
-
-        // Detailed error handling
-        if (error.response) {
-          console.error('Server responded with an error:', error.response.data);
-          this.error = `Server error: ${error.response.data.message || error.response.statusText}`;
-        } else if (error.request) {
-          console.error('No response received:', error.request);
-          this.error = 'No response received from the server. Please check your internet connection and try again.';
-        } else {
-          console.error('Error setting up the request:', error.message);
-          this.error = `Error setting up the request: ${error.message}`;
-        }
-      }
-    },
-    async fetchEntries() {
-      try {
-        const response = await axios.get(`http://localhost:5000/request/${this.UID}`);
-        this.entries = response.data.requests;
-      } catch (error) {
-        console.error('Error fetching entries:', error);
-        this.entries = [];
-        if (error.response) {
-          this.error = `Server error: ${error.response.data.message || error.response.statusText}`;
-        } else if (error.request) {
-          this.error = 'No response received from the server. Please check your internet connection and try again.';
-        } else {
-          this.error = `Error setting up the request: ${error.message}`;
-        }
-      }
+    redirectToSymptomChecker() {
+      window.location.href = 'https://symptomate.com/interview/0'; // Redirect to external site
     },
     getImageUrl(image) {
-      return new URL(`../assets/images/${image}`, import.meta.url).href;
+      return new URL("../assets/images/${image}", import.meta.url).href;
     }
-  },
-  mounted() {
-    // Fetch the entries when the component is mounted
-    this.fetchEntries();
   }
 };
 </script>

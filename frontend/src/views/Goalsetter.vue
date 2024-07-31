@@ -27,30 +27,69 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
       newGoal: '',
-      goals: []
+      goals: [],
+      userId: ''
     };
   },
   methods: {
+    fetchCurrentUser() {
+      axios.get('http://localhost:5000/current_user')
+        .then(response => {
+          this.userId = response.data.UID;
+          this.fetchGoals();
+        })
+        .catch(error => {
+          console.error('Error fetching current user:', error);
+        });
+    },
     addGoal() {
-      if (this.newGoal.trim() !== '') {
-        this.goals.push({ id: Date.now(), text: this.newGoal, completed: false });
-        this.newGoal = '';
+      if (this.newGoal.trim() !== '' && this.userId !== '') {
+        const newGoal = {
+          UID: this.userId,
+          g_description: this.newGoal
+        };
+
+        axios.post('http://localhost:5000/goal', newGoal)
+          .then(response => {
+            console.log(response.data.message);
+            this.fetchGoals();  // Refresh the goal list after adding a new goal
+            this.newGoal = '';
+          })
+          .catch(error => {
+            console.error('Error adding goal:', error);
+          });
       }
     },
-    removeGoal(id) {
-      this.goals = this.goals.filter(goal => goal.id !== id);
+    fetchGoals() {
+      if (this.userId !== '') {
+        axios.get("http://localhost:5000/goal/${this.userId}")
+          .then(response => {
+            this.goals = response.data.goals;
+          })
+          .catch(error => {
+            console.error('Error fetching goals:', error);
+          });
+      }
+    },
+    removeGoal(GID) {
+      this.goals = this.goals.filter(goal => goal.GID !== GID);
     },
     getImageUrl(image) {
-      return new URL(`../assets/images/${image}`, import.meta.url).href;
+      return new URL("../assets/images/${image}", import.meta.url).href;
     },
     getGoalProgress(goal) {
       // Example progress calculation (based on completion status)
       return goal.completed ? 100 : 0;
     }
+  },
+  created() {
+    this.fetchCurrentUser();
   }
 };
 </script>

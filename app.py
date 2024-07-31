@@ -15,24 +15,12 @@ def home():
 @app.route('/chatbot', methods=['POST'])
 def process_input():
     user_input = request.json.get('message')
-    user_id = request.json.get('user_id')    
-    mm_response = requests.post('http://localhost:5005/webhooks/rest/webhook', json={"message": user_input})
-    mm_response.raise_for_status()  
+    user_id = request.json.get('_v7ttyvkg8')
 
-    response_data = mm_response.json()
-    response = response_data[0]['text'] if response_data else "Sorry, I did not understand."
-        
-    try:
-        conversation = Conversation(UID=user_id, user_input=user_input, conversation_text=response)
-        db.session.add(conversation)
-        db.session.commit()
-    except Exception as e:
-        # Log and handle database errors
-        app.logger.error(f"Error saving conversation to database: {e}")
-        return jsonify({'response': 'Error saving conversation to database'}), 500
+    # Find a matching pattern
+    response = match_intent(user_input, intents)
 
     return jsonify({'response': response})
-
 
 @app.route('/register', methods=['POST'])
 def register():
@@ -96,7 +84,7 @@ def view_goals(UID):
 @app.route('/conversations/<UID>', methods=['GET'])
 def view_conversations(UID):
     conversations = Conversation.query.filter_by(UID=UID).all()
-    entries = [{'CID': conv.CID, 'user_input': conv.user_input, 'response_text': conv.response_text, 'conversation_date': conv.conversation_date} for conv in conversations]
+    entries = [{'id': conv.id, 'user_input': conv.user_input, 'response_text': conv.response_text, 'conversation_date': conv.conversation_date} for conv in conversations]
     return jsonify({'conversations': entries})
 
 @app.route('/request', methods=['POST'])
@@ -134,6 +122,49 @@ def view_quizzes(UID):
     quizzes = Quiz.query.filter_by(UID=UID).all()
     entries = [{'QID': quiz.QID, 'quiz_date': quiz.quiz_date} for quiz in quizzes]
     return jsonify({'quizzes': entries})
+
+import csv
+import random
+from flask import Flask, request, jsonify
+import nltk
+from nltk.tokenize import word_tokenize
+
+# Ensure NLTK resources are downloaded
+nltk.download('punkt')
+
+def load_intents(filename):
+    intents = {}
+    with open(filename, mode='r', encoding='utf-8') as file:
+        reader = csv.DictReader(file)
+        for row in reader:
+            tag = row['tags']
+            patterns = row['patterns'].split('|')
+            responses = row['responses'].split('|')
+            intents[tag] = {'patterns': patterns, 'responses': responses}
+    return intents
+
+def match_intent(user_input, intents):
+    tokenized_input = word_tokenize(user_input.lower())
+    for tag, intent in intents.items():
+        for pattern in intent['patterns']:
+            tokenized_pattern = word_tokenize(pattern.lower())
+            if set(tokenized_pattern).issubset(set(tokenized_input)):
+                return random.choice(intent['responses'])
+    return "I'm sorry, I don't understand."
+
+
+
+
+
+
+# Load intents
+intents = load_intents('intents.csv')
+
+@app.route('/chat', methods=['POST'])
+def chat():
+    user_input = request.json.get('message')
+    response = match_intent(user_input, intents)
+    return jsonify({'response': response})
 
 if __name__ == '__main__':
     app.run(debug=True)
