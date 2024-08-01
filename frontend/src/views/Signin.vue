@@ -39,7 +39,8 @@ export default {
         });
         if (response.data.UID) {
           console.log('Login successful:', response.data);
-          this.$router.push('/home'); // Navigate to the dashboard
+          localStorage.setItem('UID', response.data.UID);
+          this.$router.push('/home');
         } else {
           console.error('Invalid credentials');
         }

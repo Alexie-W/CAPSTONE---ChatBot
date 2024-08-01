@@ -19,61 +19,48 @@
       <h2>Error</h2>
       <p>{{ error }}</p>
     </div>
+
+    <!-- Embed YouTube Video -->
+    <div v-if="youtubeEmbedUrl" class="youtube-video">
+      <iframe width="560" height="315" :src="youtubeEmbedUrl" frameborder="0" allowfullscreen></iframe>
+    </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
   name: 'Meditation',
   data() {
     return {
       meditations: [
-        { id: 1, name: 'Stress Reduction' },
-        { id: 2, name: 'Self-Compassion' },
-        { id: 3, name: 'Focus' },
-        // Add more meditation options as needed
+        { id: 1, name: 'Stress Reduction', videoUrl: 'https://www.youtube.com/embed/wPoj5log_7M' },
+        { id: 2, name: 'Self-Compassion', videoUrl: 'https://www.youtube.com/embed/tN1ZdVEanYY' },
+        { id: 3, name: 'Focus', videoUrl: 'https://www.youtube.com/embed/wfDTp2GogaQ' },
+        { id: 4, name: 'Sleep', videoUrl: 'https://www.youtube.com/embed/ccvL_gdXbKM' },
+        // Add more meditation options and their corresponding video URLs
       ],
       selectedMeditation: null,
       meditationContent: null,
-      error: null
+      error: null,
+      youtubeEmbedUrl: null // This will be updated based on the selected meditation
     };
   },
   methods: {
-    async startMeditation() {
+    startMeditation() {
       if (!this.selectedMeditation) {
         this.error = 'Please select a meditation session.';
         return;
       }
 
-      try {
-        const response = await axios.post('https://the-guided-meditation-site.com', {
-          meditationId: this.selectedMeditation.id
-        });
+      // Set the YouTube video URL for the selected meditation
+      this.youtubeEmbedUrl = this.selectedMeditation.videoUrl;
 
-        console.log('Response from external website:', response.data);
-        this.meditationContent = response.data.content;  // Assuming response.data.content contains the meditation content
-        this.error = null;  // Clear any previous error
-      } catch (error) {
-        console.error('Error starting meditation:', error);
-        this.meditationContent = null;  // Clear any previous meditation content
-
-        // Detailed error handling
-        if (error.response) {
-          console.error('Server responded with an error:', error.response.data);
-          this.error = `Server error: ${error.response.data.message || error.response.statusText}`;
-        } else if (error.request) {
-          console.error('No response received:', error.request);
-          this.error = 'No response received from the server. Please check your internet connection and try again.';
-        } else {
-          console.error('Error setting up the request:', error.message);
-          this.error = `Error setting up the request: ${error.message}`;
-        }
-      }
+      // Optionally, handle other logic for starting the meditation
+      this.meditationContent = null; // Clear previous meditation content
+      this.error = null;  // Clear any previous error
     },
     getImageUrl(image) {
-      return new URL(`../assets/images/${image}`, import.meta.url).href;
+      return new URL('../assets/images/${image}', import.meta.url).href;
     }
   }
 };
@@ -149,5 +136,10 @@ h1 {
   border: 1px solid #ddd;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.youtube-video {
+  margin-top: 20px;
+  text-align: center; /* Center the iframe */
 }
 </style>

@@ -1,186 +1,222 @@
 <template>
-    <div class="quiz container">
-      <header>
+  <div class="quiz container">
+    <header>
+      <h1>Quiz</h1>
+      <img :src="getImageUrl('quizbot.png')" alt="Avatar" class="avatar">
+    </header>
 
-        <h1>Quiz</h1>
+    <div v-if="quizzes.length" class="quizzes-list">
+      <div v-for="quiz in quizzes" :key="quiz.QID" class="quiz-item card">
+        <h2>Quiz ID: {{ quiz.QID }}</h2>
+        <p>Date: {{ formatDate(quiz.quiz_date) }}</p>
+        <button @click="viewQuiz(quiz.QID)" class="btn">Take Quiz</button>
+      </div>
+    </div>
 
-        <img :src="getImageUrl('quizbot.png')" alt="Avatar" class="avatar">  
-      </header>
-      
-      <div v-if="quizzes.length" class="quizzes-list">
-        <div v-for="quiz in quizzes" :key="quiz.QID" class="quiz-item card">
-          <h2>Quiz ID: {{ quiz.QID }}</h2>
-          <p>Date: {{ formatDate(quiz.quiz_date) }}</p>
-          <button @click="viewQuiz(quiz.QID)" class="btn">View Quiz</button>
-        </div>
-      </div>
-      
-      <div v-else class="no-quizzes card">
-        <h2>No Quizzes Found</h2>
-        <p>You have no quizzes available.</p>
-      </div>
-      
-      <div v-if="selectedQuiz" class="quiz-details card">
-        <h2>Quiz Details</h2>
+    <div v-else class="no-quizzes card">
+      <h2>No Quizzes Found</h2>
+      <p>You have no quizzes available.</p>
+    </div>
+
+    <div v-if="selectedQuiz" class="quiz-details card">
+      <h2>Quiz Details</h2>
+      <form @submit.prevent="submitQuiz">
         <div v-for="question in selectedQuiz.questions" :key="question.question_id" class="question-item">
           <p>{{ question.question_text }}</p>
           <ul>
             <li v-for="answer in question.answers" :key="answer.answer_id">
+              <input
+                type="radio"
+                :name="'question-' + question.question_id"
+                :value="answer.answer_id"
+                v-model="selectedAnswers[question.question_id]"
+              />
               {{ answer.answer_text }}
             </li>
           </ul>
         </div>
-        <button @click="closeQuiz" class="btn">Close</button>
-      </div>
-      
-      <div v-if="error" class="error card">
-        <h2>Error</h2>
-        <p>{{ error }}</p>
-      </div>
+        <button type="submit" class="btn">Submit Quiz</button>
+      </form>
+      <button @click="closeQuiz" class="btn">Close</button>
     </div>
-  </template>
-  
-  <script>
-  import axios from 'axios';
-  
-  export default {
-    data() {
-      return {
-        quizzes: [],
-        selectedQuiz: null,
-        error: null,
-        userId: 1 // Replace with the actual user ID
-      };
+
+    <div v-if="error" class="error card">
+      <h2>Error</h2>
+      <p>{{ error }}</p>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      quizzes: [
+        {
+          QID: 1,
+          quiz_date: '2024-01-01',
+          questions: [
+            {
+              question_id: 1,
+              question_text: 'How often have you been bothered by feeling down, depressed, or hopeless over the past two weeks?',
+              answers: [
+                { answer_id: 1, answer_text: 'Not at all' },
+                { answer_id: 2, answer_text: 'Several days' },
+                { answer_id: 3, answer_text: 'More than half the days' },
+                { answer_id: 4, answer_text: 'Nearly every day' }
+              ]
+            },
+            {
+              question_id: 2,
+              question_text: 'How often have you had little interest or pleasure in doing things over the past two weeks?',
+              answers: [
+                { answer_id: 5, answer_text: 'Not at all' },
+                { answer_id: 6, answer_text: 'Several days' },
+                { answer_id: 7, answer_text: 'More than half the days' },
+                { answer_id: 8, answer_text: 'Nearly every day' }
+              ]
+            }
+          ]
+        },
+        {
+          QID: 2,
+          quiz_date: '2024-01-02',
+          questions: [
+            {
+              question_id: 3,
+              question_text: 'Over the last month, how often have you felt nervous, anxious, or on edge?',
+              answers: [
+                { answer_id: 9, answer_text: 'Not at all' },
+                { answer_id: 10, answer_text: 'Several days' },
+                { answer_id: 11, answer_text: 'More than half the days' },
+                { answer_id: 12, answer_text: 'Nearly every day' }
+              ]
+            },
+            {
+              question_id: 4,
+              question_text: 'Over the last month, how often have you been unable to stop or control worrying?',
+              answers: [
+                { answer_id: 13, answer_text: 'Not at all' },
+                { answer_id: 14, answer_text: 'Several days' },
+                { answer_id: 15, answer_text: 'More than half the days' },
+                { answer_id: 16, answer_text: 'Nearly every day' }
+              ]
+            }
+          ]
+        }
+      ],
+      selectedQuiz: null,
+      selectedAnswers: {},
+      error: null,
+      userId: 1 // Replace with the actual user ID if needed
+    };
+  },
+  methods: {
+    viewQuiz(QID) {
+      this.selectedQuiz = this.quizzes.find(quiz => quiz.QID === QID);
+      this.selectedAnswers = {};
+      this.error = null;
     },
-    created() {
-      this.fetchQuizzes();
+    submitQuiz() {
+      const answers = Object.entries(this.selectedAnswers).map(([questionId, answerId]) => ({
+        questionId,
+        answerId
+      }));
+      console.log('User submitted answers:', answers);
+      alert('Quiz submitted successfully!');
+      this.selectedQuiz = null;
     },
-    methods: {
-      async fetchQuizzes() {
-        try {
-          const response = await axios.get(`/quiz/${this.userId}`);
-          this.quizzes = response.data.quizzes;
-          this.error = null;
-        } catch (error) {
-          this.handleError(error);
-        }
-      },
-      async viewQuiz(QID) {
-        try {
-          const response = await axios.get(`/quiz/${this.userId}/${QID}`);
-          this.selectedQuiz = response.data;
-          this.error = null;
-        } catch (error) {
-          this.handleError(error);
-        }
-      },
-      closeQuiz() {
-        this.selectedQuiz = null;
-      },
-      formatDate(dateString) {
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        return new Date(dateString).toLocaleDateString(undefined, options);
-      },
-      getImageUrl(image) {
-        return new URL(`../assets/images/${image}`, import.meta.url).href;
-      },
-      handleError(error) {
-        console.error('Error:', error);
-        if (error.response) {
-          this.error = `Server error: ${error.response.data.message || error.response.statusText}`;
-        } else if (error.request) {
-          this.error = 'No response received from the server. Please check your internet connection and try again.';
-        } else {
-          this.error = `Error setting up the request: ${error.message}`;
-        }
-      }
+    closeQuiz() {
+      this.selectedQuiz = null;
+    },
+    formatDate(dateString) {
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      return new Date(dateString).toLocaleDateString(undefined, options);
+    },
+    getImageUrl(image) {
+      return new URL('../assets/images/${image}', import.meta.url).href;
     }
-  };
-  </script>
-  
-  <style scoped>
-  .container {
+  }
+};
+</script>
+
+<style scoped>
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.container {
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  text-align: center;
-  height: 100vh;
-  background-color: #F5EFE6;
   padding: 20px;
+}
+
+.quizzes-list,
+.quiz-details,
+.no-quizzes,
+.error {
+  width: 100%;
+  max-width: 600px;
+  margin: 20px 0;
+  background-color: #f5efe6;
   border-radius: 8px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.card {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 40px;
-}
-
-.avatar {
-  width: 300px; 
-  height: 300px; 
-  border-radius: 0;
+  text-align: center;
   margin-bottom: 20px;
 }
 
-  
-  h1 {
-    color: #3C2317;
-    font-size: 36px;
-    margin: 0;
-    font-family: "Copperplate", "Papyrus", fantasy;
-  }
-  
-  .quizzes-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    width: 100%;
-  }
-  
-  .quiz-item {
-    margin: 10px;
-    padding: 20px;
-    width: 300px;
-  }
-  
-  .no-quizzes {
-    text-align: center;
-  }
-  
-  .quiz-details {
-    margin-top: 20px;
-    padding: 20px;
-  }
-  
-  .error {
-    margin-top: 20px;
-    padding: 20px;
-  }
-  
-  .btn {
-    margin-top: 20px;
-    padding: 20px 40px;
-    background-color: #B4CDE6;
-    color: black;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 18px;
-  }
-  
-  .btn:hover {
-    background-color: #628E90;
-  }
-  
-  .question-item {
-    margin: 10px 0;
-  }
-  
-  .error p {
-    color: red;
-  }
-  </style>
-  
+h1 {
+  color: #3c2317;
+  font-size: 32px;
+  margin: 0;
+  font-family: 'Copperplate', 'Papyrus', fantasy;
+}
+
+.avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-top: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.quiz-item,
+.no-quizzes,
+.error {
+  text-align: center;
+}
+
+.question-item {
+  margin-bottom: 20px;
+}
+
+.btn {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #45a049;
+}
+
+.error {
+  color: red;
+}
+</style>

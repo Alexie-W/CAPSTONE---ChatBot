@@ -9,10 +9,10 @@
       <button type="submit" class="btn add-btn">Add Goal</button>
     </form>
     <ul>
-      <li v-for="goal in goals" :key="goal.id" class="goal-item">
+      <li v-for="goal in goals" :key="goal.GID" class="goal-item">
         <div class="goal-content">
           <input type="checkbox" v-model="goal.completed" class="checkbox">
-          <span :class="{ completed: goal.completed }">{{ goal.text }}</span>
+          <span :class="{ completed: goal.completed }">{{ goal.g_description }}</span>
         </div>
         <div v-if="goal.completed" class="progress-tab">
           <div class="progress-bar">
@@ -20,79 +20,52 @@
           </div>
           <span>{{ getGoalProgress(goal) }}% Complete</span>
         </div>
-        <button @click="removeGoal(goal.id)" class="btn remove-btn">✕</button>
+        <button @click="removeGoal(goal.GID)" class="btn remove-btn">✕</button>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
   data() {
     return {
       newGoal: '',
       goals: [],
-      userId: ''
+      nextGoalId: 1 // Keep track of the next goal ID
     };
   },
   methods: {
-    fetchCurrentUser() {
-      axios.get('http://localhost:5000/current_user')
-        .then(response => {
-          this.userId = response.data.UID;
-          this.fetchGoals();
-        })
-        .catch(error => {
-          console.error('Error fetching current user:', error);
-        });
-    },
     addGoal() {
-      if (this.newGoal.trim() !== '' && this.userId !== '') {
+      if (this.newGoal.trim() !== '') {
         const newGoal = {
-          UID: this.userId,
-          g_description: this.newGoal
+          GID: this.nextGoalId,
+          g_description: this.newGoal,
+          completed: false
         };
 
-        axios.post('http://localhost:5000/goal', newGoal)
-          .then(response => {
-            console.log(response.data.message);
-            this.fetchGoals();  // Refresh the goal list after adding a new goal
-            this.newGoal = '';
-          })
-          .catch(error => {
-            console.error('Error adding goal:', error);
-          });
-      }
-    },
-    fetchGoals() {
-      if (this.userId !== '') {
-        axios.get("http://localhost:5000/goal/${this.userId}")
-          .then(response => {
-            this.goals = response.data.goals;
-          })
-          .catch(error => {
-            console.error('Error fetching goals:', error);
-          });
+        this.goals.push(newGoal);
+        this.nextGoalId += 1;
+        this.newGoal = '';
+      } else {
+        alert('Please enter a goal description.');
       }
     },
     removeGoal(GID) {
       this.goals = this.goals.filter(goal => goal.GID !== GID);
     },
     getImageUrl(image) {
-      return new URL("../assets/images/${image}", import.meta.url).href;
+      return new URL('../assets/images/${image}', import.meta.url).href;
     },
     getGoalProgress(goal) {
       // Example progress calculation (based on completion status)
       return goal.completed ? 100 : 0;
     }
-  },
-  created() {
-    this.fetchCurrentUser();
   }
 };
 </script>
+
+
 
 <style scoped>
 html, body {

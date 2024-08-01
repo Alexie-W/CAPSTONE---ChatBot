@@ -1,7 +1,7 @@
 <template>
   <div class="chat container">
     <header class="chat-header">
-      <img :src="getImageUrl('matebot.png')" alt="Avatar" class="avatar">
+      <!-- <img :src="getImageUrl('matebot.png')" alt="Avatar" class="avatar"> -->
       <h1>Chat with Mate</h1>
     </header>
     <ChatWindow>
@@ -10,12 +10,11 @@
       </div>
       <div class="message-input-container">
         <MessageInput v-model="newMessage" @sendMessage="sendMessage" />
-        <SendMessageButton class="btn" @sendMessage="sendMessage" />
+        <SendMessageButton @sendMessage="sendMessage" />
       </div>
     </ChatWindow>
   </div>
 </template>
-
 <script>
 import axios from 'axios';
 import ChatWindow from '../components/ChatWindow.vue';
@@ -34,59 +33,40 @@ export default {
     return {
       messages: [],
       newMessage: '',
-      userId: '_v7ttyvkg8' // Fixed user ID
+      userId: null
     };
   },
-  created() {
-    this.fetchConversations()
-      .catch(error => console.error("Error fetching conversations:", error));
-  },
   methods: {
-    async fetchConversations() {
-      try {
-        const response = await axios.get(`/conversations/${this.userId}`);
-        if (response.data && Array.isArray(response.data.conversations)) {
-          this.messages = response.data.conversations.map(conv => {
-            return [
-              { text: conv.user_input, sender: 'user' },
-              { text: conv.response_text, sender: 'bot' }
-            ];
-          }).flat(); // Flatten the array to have a single level array
-        } else {
-          console.error("Conversations data is missing or not an array.");
-        }
-      } catch (error) {
-        console.error("Error fetching conversations:", error);
-      }
-    },
     async sendMessage() {
-      if (this.newMessage.trim() !== '') {
-        // Add the user's message to the message list
-        this.messages.push({ text: this.newMessage, sender: 'user' });
+  if (this.newMessage.trim() !== '') {
+    const user_id = localStorage.getItem('UID');
+    // Add the user's message to the message list
+    this.messages.push({ text: this.newMessage, sender: 'user' });
 
-        // Send the message to the backend
-        try {
-          const response = await axios.post('/chatbot', {
-            message: this.newMessage,
-            user_id: '_v7ttyvkg8'
-          });
+    // Send the message to the backend
+    try {
+      const response = await axios.post('http://localhost:5000/chatbot', {
+        message: this.newMessage,
+        user_id: user_id
+      });
 
-          // Add the chatbot's response to the message list
-          this.messages.push({ text: response.data.response, sender: 'bot' });
-        } catch (error) {
-          console.error("Error sending message to backend:", error);
-          this.messages.push({ text: "There was an error processing your message.", sender: 'bot' });
-        }
+      // Add the chatbot's response to the message list
+      this.messages.push({ text: response.data.response, sender: 'bot' });
+    } catch (error) {
+      console.error("Error sending message to backend:", error);
+      this.messages.push({ text: "There was an error processing your message.", sender: 'bot' });
+    }
 
-        // Clear the input field
-        this.newMessage = '';
-      }
+    // Clear the input field
+    this.newMessage = '';
+  }
+}
     },
     getImageUrl(image) {
-      return new URL(`../assets/images/${image}`, import.meta.url).href;
+      return new URL('../assets/images/${image}', import.meta.url).href;
     }
-  }
-};
+  };
+
 </script>
 
 <style scoped>
