@@ -113,7 +113,7 @@ h2 {
 }
 
 .link {
-  color: #B4CDE6; /* Change to your desired color */
+  color: #B4CDE6; 
   text-decoration: none;
   font-weight: bold;
 }

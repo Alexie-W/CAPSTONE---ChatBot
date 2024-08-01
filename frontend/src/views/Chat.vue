@@ -49,15 +49,12 @@ export default {
         message: this.newMessage,
         user_id: user_id
       });
-
-      // Add the chatbot's response to the message list
       this.messages.push({ text: response.data.response, sender: 'bot' });
     } catch (error) {
       console.error("Error sending message to backend:", error);
       this.messages.push({ text: "There was an error processing your message.", sender: 'bot' });
     }
 
-    // Clear the input field
     this.newMessage = '';
   }
 }

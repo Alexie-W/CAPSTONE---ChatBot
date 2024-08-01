@@ -27,42 +27,76 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   data() {
     return {
       newGoal: '',
       goals: [],
-      nextGoalId: 1 // Keep track of the next goal ID
+      nextGoalId: 1 
     };
   },
   methods: {
-    addGoal() {
-      if (this.newGoal.trim() !== '') {
-        const newGoal = {
-          GID: this.nextGoalId,
-          g_description: this.newGoal,
-          completed: false
-        };
+  async addGoal() {
+    if (this.newGoal.trim() !== '') {
+      const UID = localStorage.getItem('UID');
+      const newGoal = {
+        g_description: this.newGoal
+      };
 
-        this.goals.push(newGoal);
-        this.nextGoalId += 1;
-        this.newGoal = '';
-      } else {
-        alert('Please enter a goal description.');
+      try {
+        const response = await axios.post('/goal', {
+          UID: UID,
+          g_description: this.newGoal
+        });
+
+        if (response.data.message === 'Goal added successfully') {
+          this.goals.push({
+            ...newGoal,
+            GID: this.nextGoalId,
+            completed: false
+          });
+          this.nextGoalId += 1;
+          this.newGoal = '';
+        } else {
+          alert('Failed to add goal. Please try again.');
+        }
+      } catch (error) {
+        console.error('Error adding goal:', error);
+        alert('An error occurred while adding the goal.');
       }
-    },
-    removeGoal(GID) {
-      this.goals = this.goals.filter(goal => goal.GID !== GID);
-    },
-    getImageUrl(image) {
-      return new URL('../assets/images/${image}', import.meta.url).href;
-    },
-    getGoalProgress(goal) {
-      // Example progress calculation (based on completion status)
-      return goal.completed ? 100 : 0;
+    } else {
+      alert('Please enter a goal description.');
     }
+  },
+  async removeGoal(GID) {
+  try {
+    const UID = localStorage.getItem('UID');
+    const response = await axios.delete(`/goal/${UID}/${GID}`);
+
+    if (response.data.message === 'Goal removed successfully') {
+      this.goals = this.goals.filter(goal => goal.GID !== GID);
+    } else {
+      alert('Failed to remove goal. Please try again.');
+    }
+  } catch (error) {
+    console.error('Error removing goal:', error);
+    alert('An error occurred while removing the goal.');
   }
+},
+  removeGoal(GID) {
+    this.goals = this.goals.filter(goal => goal.GID !== GID);
+  },
+  getImageUrl(image) {
+    return new URL(`../assets/images/${image}`, import.meta.url).href;
+  },
+  getGoalProgress(goal) {
+    // Example progress calculation (based on completion status)
+    return goal.completed ? 100 : 0;
+  }
+}
 };
+
 </script>
 
 
