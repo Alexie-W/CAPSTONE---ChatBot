@@ -21,7 +21,7 @@ export default {
   },
   mounted() {
     setTimeout(() => {
-      this.message = 'Loading your dashboard...'; / Update message after profile setup
+      this.message = 'Loading your dashboard...'; // Update message after profile setup
       setTimeout(() => {
         this.$router.push('/home');
       }, 3000); // Simulate loading time for dashboard

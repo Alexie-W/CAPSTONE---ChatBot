@@ -4,7 +4,7 @@
     <header>
       <h1> DASHBOARD </h1>
     </header>
-     <!-- Iterating through the options array to create cards for each dashboard option -->
+    <!-- Iterating through the options array to create cards for each dashboard option -->
     <router-link v-for="option in options" :key="option.title" :to="option.route" class="card">
       <img :src="getImageUrl(option.image)" alt="">
       <h3>{{ option.title }}</h3>
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-<!-- Dashboard options -->
+// <!-- Dashboard options -->
 export default {
   data() {
     return {
