@@ -109,15 +109,15 @@ def generate_response(intent):
 
     return response
 
-# Example usage
-while True:
-    # Get user input
-    user_input = input("User: ")
+# # Example usage
+# while True:
+#     # Get user input
+#     user_input = input("User: ")
 
-    # Predict intent
-    intent = predict_intent(user_input)
+#     # Predict intent
+#     intent = predict_intent(user_input)
 
-    # Generate response
-    response = generate_response(intent)
+#     # Generate response
+#     response = generate_response(intent)
 
-    print("Chatbot:", response)
+#     print("Chatbot:", response)
