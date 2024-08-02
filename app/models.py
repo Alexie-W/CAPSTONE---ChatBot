@@ -1,5 +1,6 @@
 from app import db
 
+  #Represents a user in the system.
 class User(db.Model):
     UID = db.Column(db.String(50), primary_key=True)
     username = db.Column(db.String(50), nullable=False)
@@ -20,6 +21,7 @@ class User(db.Model):
         self.email = email
         self.password = password
 
+#Represents a goal in the system.
 class Goal(db.Model):
     GID = db.Column(db.Integer, primary_key=True)
     UID = db.Column(db.String(50), db.ForeignKey('user.UID'), nullable=False)
@@ -31,6 +33,7 @@ class Goal(db.Model):
         self.UID = UID
         self.g_description = g_description
 
+#Represents a journal entry in the system.
 class JournalEntry(db.Model):
     JID = db.Column(db.Integer, primary_key=True)
     UID = db.Column(db.String(50), db.ForeignKey('user.UID'), nullable=False)
@@ -42,6 +45,7 @@ class JournalEntry(db.Model):
         self.UID = UID
         self.entry_text = entry_text
 
+#Represents a mood in the system.
 class MoodTracking(db.Model):
     MID = db.Column(db.Integer, primary_key=True)
     UID = db.Column(db.String(50), db.ForeignKey('user.UID'), nullable=False)
@@ -53,6 +57,7 @@ class MoodTracking(db.Model):
         self.UID = UID
         self.mood = mood
 
+#Represents a conversation in the system.
 class Conversation(db.Model):
     CID = db.Column(db.Integer, primary_key=True)
     UID = db.Column(db.String(50), db.ForeignKey('user.UID'), nullable=False)
@@ -66,6 +71,7 @@ class Conversation(db.Model):
         self.user_input = user_input
         self.conversation_text = conversation_text
 
+#Represents a request in the system.
 class Request(db.Model):
     RID = db.Column(db.Integer, primary_key=True)
     UID = db.Column(db.String(50), db.ForeignKey('user.UID'), nullable=False)
@@ -77,6 +83,7 @@ class Request(db.Model):
         self.UID = UID
         self.symptom = symptom
 
+#Represents a quiz in the system.
 class Quiz(db.Model):
     QID = db.Column(db.Integer, primary_key=True)
     UID = db.Column(db.String(50), db.ForeignKey('user.UID'), nullable=False)
@@ -88,6 +95,7 @@ class Quiz(db.Model):
     def __init__(self, UID):
         self.UID = UID
 
+#Represents a quiz question in the system.
 class Question(db.Model):
     question_id = db.Column(db.Integer, primary_key=True)
     QID = db.Column(db.Integer, db.ForeignKey('quiz.QID'), nullable=False)
@@ -100,6 +108,7 @@ class Question(db.Model):
         self.QID = QID
         self.question_text = question_text
 
+#Represents a quiz answer in the system.
 class Answer(db.Model):
     answer_id = db.Column(db.Integer, primary_key=True)
     question_id = db.Column(db.Integer, db.ForeignKey('question.question_id'), nullable=False)
@@ -110,6 +119,7 @@ class Answer(db.Model):
         self.question_id = question_id
         self.answer_text = answer_text
 
+#Represents a intent in the system.
 class Intent(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     intent_name = db.Column(db.String(50), nullable=False)
@@ -121,6 +131,7 @@ class Intent(db.Model):
         self.examples = examples
         self.responses = responses
 
+# Relationships initialization 
 User.goals = db.relationship('Goal', order_by=Goal.GID, back_populates='user')
 User.journal_entries = db.relationship('JournalEntry', order_by=JournalEntry.JID, back_populates='user')
 User.mood_tracking = db.relationship('MoodTracking', order_by=MoodTracking.MID, back_populates='user')

@@ -1,10 +1,13 @@
 <template>
   <div class="symptom-checker container">
+      <!-- Main Title Question of the page -->
     <h1>Are you feeling Unwell?</h1>
     <img :src="getImageUrl('drchopper.png')" alt="Unwell Image" class="unwell-image">
+     <!-- Subtitle prompting user to check symptoms -->
     <h2>Let's check your symptoms</h2>
 
     <div class="symptoms">
+      <!-- Button to redirect to external symptom checker -->
       <button @click="redirectToSymptomChecker" class="btn">Use External Symptom Checker</button>
 
       </div>
@@ -15,6 +18,7 @@
 import axios from 'axios';
 
 export default {
+   // Method to redirect the user to an external symptom checker site
   name: 'SymptomChecker',
   methods: {
     redirectToSymptomChecker() {

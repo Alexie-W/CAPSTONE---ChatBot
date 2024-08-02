@@ -1,15 +1,19 @@
 <template>
+    <!-- Main container for the journal page -->
   <div class="journal container">
     <header>
       <h1>Journal</h1>
 
       <img :src="getImageUrl('journalbot.png')" alt="Avatar" class="avatar">
     </header>
+     <!-- Button to toggle the entry box, only shown when the entry box is hidden -->
     <button @click="toggleEntryBox" v-if="!showEntryBox" class="btn">Add New Entry</button>
+      <!-- Entry box for adding new journal entries, only shown when toggled -->
     <div v-if="showEntryBox" class="entry-box">
       <textarea v-model="entry" placeholder="Write your thoughts here..." class="input-group"></textarea>
       <button @click="saveEntry" class="btn">Save Entry</button>
     </div>
+    <!-- List of saved journal entries -->
     <div class="entries">
       <div v-for="(entry, index) in entries" :key="index" class="entry card">
         <p>{{ entry }}</p>
@@ -27,18 +31,19 @@ export default {
       entries: [],
       showEntryBox: false
     };
-  },
+  }, // Toggle the visibility of the entry box
   methods: {
     toggleEntryBox() {
       this.showEntryBox = !this.showEntryBox;
     },
+    // Save a new journal entry
     saveEntry() {
       if (this.entry.trim() !== '') {
         this.entries.push(this.entry);
         this.entry = '';
         this.showEntryBox = false;
       }
-    },
+    }, // Remove a journal entry by index
     removeEntry(index) {
       this.entries.splice(index, 1);
     },

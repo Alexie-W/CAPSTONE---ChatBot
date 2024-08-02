@@ -2,12 +2,17 @@
 <template>
     <div class="title-page container">
       <header>
+          <!-- Logo image for the page -->
         <img :src="getImageUrl('logo.png')" alt="Logo" class="logo">
+          <!-- Avatar image for the page -->
         <img :src="getImageUrl('titlebot.png')" alt="Avatar" class="avatar">
+          <!-- Main title of the page -->
         <h1>MENTAL MATE</h1>
       </header>
       <div class="buttons">
+        <!-- Button to navigate to the sign-up page -->
         <button @click="navigateTo('signup')" class="btn">Sign Up</button>
+          <!-- Button to navigate to the sign-in page -->
         <button @click="navigateTo('signin')" class="btn">Sign In</button>
       </div>
     </div>
@@ -16,6 +21,7 @@
   <script>
   export default {
     methods: {
+       // Method to navigate to a specified page using Vue Router
       navigateTo(page) {
         this.$router.push(`/${page}`);
       },

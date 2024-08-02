@@ -1,4 +1,7 @@
+// Import necessary functions from vue-router
 import { createRouter, createWebHistory } from 'vue-router';
+
+// Import components for each route
 import Home from '../views/Home.vue';
 import MoodTracker from '../views/MoodTracker.vue';
 import GoalSetting from '../views/Goalsetter.vue';
@@ -13,6 +16,7 @@ import SignupVerification from '../views/SignupVerification.vue';
 import Quiz from '../views/Quiz.vue';
 import Helpline from '@/views/Helpline.vue';
 
+// Define routes for the application
 const routes = [
   { path: '/', component: TitlePage },
   { path: '/moodtracker', component: MoodTracker },
@@ -29,9 +33,11 @@ const routes = [
   { path: '/helpline', name: 'Helplines', component: Helpline }
 ];
 
+// Create the router instance and pass the `routes` array to it
 const router = createRouter({
   history: createWebHistory(),
   routes
 });
 
+// Export the router instance to be used in the Vue app
 export default router;

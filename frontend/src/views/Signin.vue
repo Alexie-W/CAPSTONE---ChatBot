@@ -5,16 +5,20 @@
       <h1>MENTAL MATE</h1>
       <img :src="getImageUrl('titlebot.png')" alt="Avatar" class="avatar">
     </header>
+    <!-- Welcome message and instructions -->
     <h2>Welcome Back</h2>
     <h4>Enter your password and email to sign in</h4>
+       <!-- Sign-in form -->
     <form @submit.prevent="signIn" class="form">
       <input v-model="email" type="email" placeholder="Email" required class="input-group">
       <input v-model="password" type="password" placeholder="Password" required class="input-group">
       <br>
+       <!-- Link to sign-up page for users without an account -->
       <h5 class="sign-up-link">
         Don't have an account?
         <router-link to="/signup" class="link">Sign Up</router-link>
       </h5>
+      <!-- Submit button for the sign-in form -->
       <button type="submit" class="btn">Sign In</button>
     </form>
   </div>
@@ -26,26 +30,30 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      email: '',
-      password: ''
+      email: '', // User's email input
+      password: '' // User's password input
     };
   },
   methods: {
+    // Method to handle sign-in process
     async signIn() {
       try {
+        // Send a POST request to the login endpoint with email and password
         const response = await axios.post('/api/login', {
           email: this.email,
           password: this.password
         });
+          // Check if login was successful and UID was returned
         if (response.data.UID) {
           console.log('Login successful:', response.data);
           localStorage.setItem('UID', response.data.UID);
           this.$router.push('/home');
         } else {
-          console.error('Invalid credentials');
+            // Log error if credentials are invalid
+          console.error('Invalid credentials'); 
         }
       } catch (error) {
-        console.error('Error during sign in:', error);
+        console.error('Error during sign in:', error);   // Log any errors that occur during sign-in
       }
     },
     getImageUrl(image) {

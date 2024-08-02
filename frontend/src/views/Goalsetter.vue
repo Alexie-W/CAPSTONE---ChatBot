@@ -1,19 +1,23 @@
 <template>
+   <!-- Main container for the goal setter page -->
   <div class="goals container">
     <header>
       <h1>Goals</h1>
     </header>
     <img :src="getImageUrl('goalbot.png')" alt="Avatar" class="avatar">
+    <!-- Form to add a new goal -->
     <form @submit.prevent="addGoal" class="form-group">
       <input v-model="newGoal" placeholder="Set a new goal" required class="input">
       <button type="submit" class="btn add-btn">Add Goal</button>
     </form>
+     <!-- List of goals -->
     <ul>
       <li v-for="goal in goals" :key="goal.GID" class="goal-item">
         <div class="goal-content">
           <input type="checkbox" v-model="goal.completed" class="checkbox">
           <span :class="{ completed: goal.completed }">{{ goal.g_description }}</span>
         </div>
+        <!-- Progress tab shown when a goal is completed -->
         <div v-if="goal.completed" class="progress-tab">
           <div class="progress-bar">
             <div :style="{ width: getGoalProgress(goal) + '%' }" class="progress"></div>
@@ -27,36 +31,39 @@
 </template>
 
 <script>
+// Import axios for making HTTP requests
 import axios from 'axios';
+
 export default {
   data() {
     return {
-      newGoal: '',
-      goals: [],
-      nextGoalId: 1 
+      newGoal: '', // Model for new goal input
+      goals: [], // List of goals
+      nextGoalId: 1 // ID for the next goal to be added
     };
   },
+   // Method to add a new goal
   methods: {
   async addGoal() {
     if (this.newGoal.trim() !== '') {
-      const UID = localStorage.getItem('UID');
+      const UID = localStorage.getItem('UID'); // Get the user ID from local storage
       const newGoal = {
         g_description: this.newGoal
       };
-
+       // Send a POST request to add the new goal
       try {
         const response = await axios.post('/goal', {
           UID: UID,
           g_description: this.newGoal
         });
-
+        // If the goal is added successfully, update the goals list
         if (response.data.message === 'Goal added successfully') {
           this.goals.push({
             ...newGoal,
             GID: this.nextGoalId,
             completed: false
           });
-          this.nextGoalId += 1;
+          this.nextGoalId += 1; // Increment the next goal ID
           this.newGoal = '';
         } else {
           alert('Failed to add goal. Please try again.');
@@ -68,12 +75,13 @@ export default {
     } else {
       alert('Please enter a goal description.');
     }
-  },
+  },// Method to remove a goal
   async removeGoal(GID) {
   try {
     const UID = localStorage.getItem('UID');
+     // Send a DELETE request to remove the goal
     const response = await axios.delete(`/goal/${UID}/${GID}`);
-
+    // If the goal is removed successfully, update the goals list
     if (response.data.message === 'Goal removed successfully') {
       this.goals = this.goals.filter(goal => goal.GID !== GID);
     } else {
@@ -90,8 +98,9 @@ export default {
   getImageUrl(image) {
     return new URL(`../assets/images/${image}`, import.meta.url).href;
   },
+   // Method to calculate the progress of a goal
   getGoalProgress(goal) {
-    // Example progress calculation (based on completion status)
+    //progress calculation (based on completion status)
     return goal.completed ? 100 : 0;
   }
 }

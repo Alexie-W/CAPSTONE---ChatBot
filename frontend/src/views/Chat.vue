@@ -1,9 +1,13 @@
 <template>
+    <!-- Main container for the chatbot -->
+
   <div class="chat container">
     <header class="chat-header">
       <!-- <img :src="getImageUrl('matebot.png')" alt="Avatar" class="avatar"> -->
       <h1>Chat with Mate</h1>
     </header>
+
+    <!-- Chat window containing message list and input components -->
     <ChatWindow>
       <div class="message-list-container">
         <MessageList :messages="messages" />
@@ -15,7 +19,10 @@
     </ChatWindow>
   </div>
 </template>
+
 <script>
+
+// Importing necessary libraries and components
 import axios from 'axios';
 import ChatWindow from '../components/ChatWindow.vue';
 import MessageInput from '../components/MessageInput.vue';
@@ -31,13 +38,19 @@ export default {
   },
   data() {
     return {
+      // Array to store chat messages
       messages: [],
+
+      // Model for the new message input  
       newMessage: '',
+
       userId: null
     };
   },
+
   methods: {
     async sendMessage() {
+       // Check if the new message is not empty
   if (this.newMessage.trim() !== '') {
     const user_id = localStorage.getItem('UID');
     // Add the user's message to the message list
@@ -49,12 +62,13 @@ export default {
         message: this.newMessage,
         user_id: user_id
       });
+      // Add the bot's response to the message list
       this.messages.push({ text: response.data.response, sender: 'bot' });
     } catch (error) {
       console.error("Error sending message to backend:", error);
       this.messages.push({ text: "There was an error processing your message.", sender: 'bot' });
     }
-
+      // Clear the new message input
     this.newMessage = '';
   }
 }

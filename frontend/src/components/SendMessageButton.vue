@@ -1,4 +1,5 @@
 <template>
+   <!-- Button to send a message -->
   <button @click="$emit('sendMessage')" class="send-btn">Send</button>
 </template>
 
