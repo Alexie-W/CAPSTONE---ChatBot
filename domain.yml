@@ -95,11 +95,11 @@ responses:
 
   utter_anxious:
   - text: "Don't be hard on yourself. I know you're feeling {mood}. Whats the reason behind this?"
-  - text: "Can you tell me more about this feeling?"
+  - text: "Can you tell me more about this {mood} feeling?"
   - text: "I understand that it can be scary."
-  - text: "Tell me more about it"
-  - text: "Don't let the little worries bring you down. What's the worse that can happen?"
-
+  - text: "Tell me more about how {mood} you feel"
+  - text: "Don't let the little worries bring you down. You're allowed to feel {mood}. What's happening?" 
+  
   utter_ask:
   - text: "Sure. I'll try my best to answer you"
   - text: "Of course. Feel free to ask me anything. I'll do my best to answer you"
