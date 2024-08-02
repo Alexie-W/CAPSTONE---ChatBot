@@ -33,13 +33,12 @@ class ActionCustomResponse (Action):
     def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: dict) -> list:
         intent = tracker.latest_message['intent'].get('name')
         if intent == 'greeting':
-            response = "Hello! How can I assist you today?"
+            dispatcher.utter_message(template="utter_greeting")
         elif intent == 'farewell':
-            response = "Goodbye! Take care."
+            dispatcher.utter_message(template="utter_farewell")
         elif intent == 'question':
-            response = "I'm sorry, I don't have the information you're looking for."
+            dispatcher.utter_message(template="utter_question")
         else:
-            response = "I'm here to help. Please let me know how I can assist you."
-
-        dispatcher.utter_message(text=response)
+            dispatcher.utter_message(text="I'm here to help. Please let me know how I can assist you.")
         return []
+
