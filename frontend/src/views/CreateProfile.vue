@@ -1,17 +1,21 @@
 <template>
+  <!-- Main container for the create profile page -->
   <div class="create-profile container">
     <header>
       <img :src="getImageUrl('titlebot.png')" alt="Avatar" class="avatar">
       <h1>Create Profile</h1>
     </header>
+     <!-- Form for creating profile -->
     <form @submit.prevent="createProfile" class="form">
       <input v-model="firstName" placeholder="First Name" required class="input-group">
       <input v-model="lastName" placeholder="Last Name" required class="input-group">
       <input v-model="email" type="email" placeholder="Email" required class="input-group">
       <input v-model="password" type="password" placeholder="Password" required class="input-group">
       
+        <!-- Date picker for date of birth -->
       <vue-datepicker v-model="dob" :format="format" placeholder="Select Date of Birth" required class="input-group"></vue-datepicker>
       
+      <!-- Radio buttons for gender selection -->
       <div class="gender-selection">
         <label>
           <input type="radio" v-model="gender" value="Male" required>
@@ -23,16 +27,19 @@
         </label>
       </div>
       
+      <!-- Submit button for creating profile -->
       <button type="submit" class="btn">Create Profile</button>
     </form>
   </div>
 </template>
 
 <script>
+// Import necessary libraries and components
 import axios from 'axios';
 import DatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 
+// Registering DatePicker component
 export default {
   components: {
     'vue-datepicker': DatePicker
@@ -48,6 +55,7 @@ export default {
       format: 'yyyy-MM-dd' // Correct date format
     };
   },
+     // Method to create a profile
   methods: {
     async createProfile() {
       const username = `${this.firstName} ${this.lastName}`;
@@ -59,15 +67,16 @@ export default {
         email: this.email,
         password: this.password
       };
-      
+      // Send a POST request to the backend to register the user
       try {
         const response = await axios.post('/api/register', userData);
         console.log(response.data.message);
+         // Redirect to the signup verification page
         this.$router.push('/SignupVerification');
       } catch (error) {
         console.error('Error creating profile:', error);
       }
-    },
+    },// Method to generate a unique user ID
     generateUID() {
       return '_' + Math.random().toString(36).substr(2, 9);
     },

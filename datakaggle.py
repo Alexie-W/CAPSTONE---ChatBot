@@ -1,10 +1,10 @@
-import numpy as np # linear algebra
-import pandas as pd
-import json
-from sklearn.model_selection import train_test_split
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.svm import SVC
-from sklearn.metrics import classification_report
+import numpy as np # Linear algebra library
+import pandas as pd # Data manipulation library
+import json  # Library for handling JSON data
+from sklearn.model_selection import train_test_split # Function to split dataset into train and test sets
+from sklearn.feature_extraction.text import TfidfVectorizer  # TF-IDF vectorizer for text data
+from sklearn.svm import SVC  # Support Vector Classifier
+from sklearn.metrics import classification_report # Function to generate classification report
 
 with open('./intents.json', 'r') as f:
     data = json.load(f)
@@ -24,21 +24,24 @@ for i in range(len(df)):
         
 df = pd.DataFrame.from_dict(dic)
 df
+# Display unique tags
 df['tag'].unique()
 
-import plotly.graph_objects as go
+import plotly.graph_objects as go # Plotly library for creating interactive plots
 
+# Plot the distribution of intents
 intent_counts = df['tag'].value_counts()
 fig = go.Figure(data=[go.Bar(x=intent_counts.index, y=intent_counts.values)])
 fig.update_layout(title='Distribution of Intents', xaxis_title='Intents', yaxis_title='Count')
 fig.show()
 
-
+# Analyze the average number of patterns and responses per intent
 df['pattern_count'] = df['patterns'].apply(lambda x: len(x))
 df['response_count'] = df['responses'].apply(lambda x: len(x))
 avg_pattern_count = df.groupby('tag')['pattern_count'].mean()
 avg_response_count = df.groupby('tag')['response_count'].mean()
 
+# Plot average pattern and response counts
 fig = go.Figure()
 fig.add_trace(go.Bar(x=avg_pattern_count.index, y=avg_pattern_count.values, name='Average Pattern Count'))
 fig.add_trace(go.Bar(x=avg_response_count.index, y=avg_response_count.values, name='Average Response Count'))

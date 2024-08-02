@@ -1,8 +1,10 @@
 <template>
+  <!-- Main container for the home/dashboard page -->
   <div class="home">
     <header>
       <h1> DASHBOARD </h1>
     </header>
+     <!-- Iterating through the options array to create cards for each dashboard option -->
     <router-link v-for="option in options" :key="option.title" :to="option.route" class="card">
       <img :src="getImageUrl(option.image)" alt="">
       <h3>{{ option.title }}</h3>
@@ -12,10 +14,11 @@
 </template>
 
 <script>
+<!-- Dashboard options -->
 export default {
   data() {
     return {
-      options: [
+      options: [  
         { title: "Let's chat", description: "Talk with Mate", image: 'chatdash.png', route: '/chat' },
         { title: "Breathing and Meditation", description: "Breathe, Flow, Transform", image: 'meditatedash.png', route: '/meditation' },
         { title: "Mood Tracker", description: "How are you feeling?", image: 'mooddash.png', route: '/moodtracker' },
@@ -29,7 +32,7 @@ export default {
   },
   methods: {
     getImageUrl(image) {
-      return new URL(`../assets/images/${image}`, import.meta.url).href;
+      return new URL(`../assets/images/${image}`, import.meta.url).href;  // Method to get the URL of an image
     }
   }
 };

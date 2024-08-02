@@ -1,20 +1,25 @@
 <template>
+     <!-- Main container for the Meditation and Breathing Exercises page -->
   <div class="meditation container">
     <header>
       <h1>Guided Meditation and Breathing</h1>
       <img :src="getImageUrl('meditationbot.png')" alt="Avatar" class="avatar">
     </header>
+     <!-- List of meditation options -->
     <div class="meditation-options">
       <div v-for="meditation in meditations" :key="meditation.id" class="meditation-option card">
         <input type="radio" v-model="selectedMeditation" :value="meditation" />
         <label>{{ meditation.name }}</label>
       </div>
     </div>
+    <!-- Button to start the selected meditation session -->
     <button @click="startMeditation" class="btn">Start Meditation</button>
+    <!-- Display meditation session content if available -->
     <div v-if="meditationContent" class="meditation-session card">
       <h2>Meditation Session</h2>
       <p>{{ meditationContent }}</p>
     </div>
+    <!-- Display error message if there is an issue -->
     <div v-if="error" class="error card">
       <h2>Error</h2>
       <p>{{ error }}</p>
@@ -32,20 +37,22 @@ export default {
   name: 'Meditation',
   data() {
     return {
+       // Array of meditation options with video URLs
       meditations: [
         { id: 1, name: 'Stress Reduction', videoUrl: 'https://www.youtube.com/embed/wPoj5log_7M' },
         { id: 2, name: 'Self-Compassion', videoUrl: 'https://www.youtube.com/embed/tN1ZdVEanYY' },
         { id: 3, name: 'Focus', videoUrl: 'https://www.youtube.com/embed/wfDTp2GogaQ' },
         { id: 4, name: 'Sleep', videoUrl: 'https://www.youtube.com/embed/ccvL_gdXbKM' },
-        // Add more meditation options and their corresponding video URLs
+        
       ],
-      selectedMeditation: null,
-      meditationContent: null,
-      error: null,
+      selectedMeditation: null,  // Currently selected meditation option
+      meditationContent: null, // Content for the selected meditation session
+      error: null, // Error message for user feedback
       youtubeEmbedUrl: null // This will be updated based on the selected meditation
     };
   },
   methods: {
+     // Method to start meditation based on selected option
     startMeditation() {
       if (!this.selectedMeditation) {
         this.error = 'Please select a meditation session.';
@@ -55,7 +62,7 @@ export default {
       // Set the YouTube video URL for the selected meditation
       this.youtubeEmbedUrl = this.selectedMeditation.videoUrl;
 
-      // Optionally, handle other logic for starting the meditation
+     
       this.meditationContent = null; // Clear previous meditation content
       this.error = null;  // Clear any previous error
     },

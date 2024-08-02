@@ -1,4 +1,5 @@
 <template>
+  <!-- Main container for the help services page -->
     <div class="help-services container">
       <header>
         <h1>Help and Support Services</h1>
@@ -6,6 +7,7 @@
         <img :src="getImageUrl('helpbot.png')" alt="Help Avatar" class="avatar">
         
       </header>
+      <!-- List of services -->
       <div class="services-list">
         <div v-for="service in services" :key="service.id" class="service card">
           <h2>{{ service.name }}</h2>

@@ -4,27 +4,33 @@
       <h1>Quiz</h1>
       <img :src="getImageUrl('quizbot.png')" alt="Avatar" class="avatar">
     </header>
-
+     <!-- Display list of available quizzes -->
     <div v-if="quizzes.length" class="quizzes-list">
       <div v-for="quiz in quizzes" :key="quiz.QID" class="quiz-item card">
+          <!-- Display quiz ID and date -->
         <h2>Quiz ID: {{ quiz.QID }}</h2>
         <p>Date: {{ formatDate(quiz.quiz_date) }}</p>
+          <!-- Button to start a selected quiz -->
         <button @click="viewQuiz(quiz.QID)" class="btn">Take Quiz</button>
       </div>
     </div>
-
+      <!-- Message for when no quizzes are available -->
     <div v-else class="no-quizzes card">
       <h2>No Quizzes Found</h2>
       <p>You have no quizzes available.</p>
     </div>
-
+      <!-- Display quiz details when a quiz is selected -->
     <div v-if="selectedQuiz" class="quiz-details card">
       <h2>Quiz Details</h2>
       <form @submit.prevent="submitQuiz">
+           <!-- Loop through questions in the selected quiz -->
         <div v-for="question in selectedQuiz.questions" :key="question.question_id" class="question-item">
+             <!-- Display question text -->
           <p>{{ question.question_text }}</p>
           <ul>
+              <!-- Loop through possible answers for the question -->
             <li v-for="answer in question.answers" :key="answer.answer_id">
+               <!-- Radio button for each answer option -->
               <input
                 type="radio"
                 :name="'question-' + question.question_id"
@@ -35,11 +41,14 @@
             </li>
           </ul>
         </div>
+         <!-- Submit button for the quiz -->
         <button type="submit" class="btn">Submit Quiz</button>
       </form>
+       <!-- Button to close the quiz details view -->
       <button @click="closeQuiz" class="btn">Close</button>
     </div>
 
+     <!-- Display error message if there is an error -->
     <div v-if="error" class="error card">
       <h2>Error</h2>
       <p>{{ error }}</p>
@@ -51,6 +60,8 @@
 export default {
   data() {
     return {
+      // Sample quiz data with questions and answers
+
       quizzes: [
         {
           QID: 1,
@@ -105,18 +116,20 @@ export default {
           ]
         }
       ],
-      selectedQuiz: null,
-      selectedAnswers: {},
-      error: null,
-      userId: 1 // Replace with the actual user ID if needed
+      selectedQuiz: null, // Currently selected quiz
+      selectedAnswers: {}, // Object to store selected answers
+      error: null, // Error message if any error occurs
+      userId: 1 // Placeholder user ID
     };
   },
   methods: {
+     // Method to select and view a quiz based on its ID
     viewQuiz(QID) {
       this.selectedQuiz = this.quizzes.find(quiz => quiz.QID === QID);
       this.selectedAnswers = {};
       this.error = null;
     },
+      // Method to handle quiz submission
     submitQuiz() {
       const answers = Object.entries(this.selectedAnswers).map(([questionId, answerId]) => ({
         questionId,
@@ -124,15 +137,18 @@ export default {
       }));
       console.log('User submitted answers:', answers);
       alert('Quiz submitted successfully!');
-      this.selectedQuiz = null;
+      this.selectedQuiz = null; // Clear selected quiz after submission
     },
+     // Method to close the quiz details view
     closeQuiz() {
       this.selectedQuiz = null;
     },
+    // Method to format the date into a readable format
     formatDate(dateString) {
       const options = { year: 'numeric', month: 'long', day: 'numeric' };
       return new Date(dateString).toLocaleDateString(undefined, options);
     },
+      // Method to get the URL of an image asset
     getImageUrl(image) {
       return new URL('../assets/images/${image}', import.meta.url).href;
     }

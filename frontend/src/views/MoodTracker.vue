@@ -1,7 +1,9 @@
 <template>
   <div class="mood-tracker container">
+     <!-- Title and prompt for the mood tracker -->
     <h2>Mood Tracker</h2>
     <p>How are you feeling today?</p>
+     <!-- List of mood options -->
     <div class="mood-options flex">
       <div 
         v-for="mood in moods" 
@@ -10,19 +12,25 @@
         :class="{ selected: selectedMood === mood.name }"
         @click="selectMood(mood.name)"
       >
+         <!-- Display mood image and name -->
         <img :src="getImageUrl(mood.image)" alt="" class="mood-image">
         <p>{{ mood.name }}</p>
       </div>
     </div>
+    <!-- Text area for user to add notes about their mood -->
     <textarea v-model="moodNote" placeholder="Anything new happened today?" class="input-group"></textarea>
+    <!-- Button to submit the mood and note -->
     <button @click="submitMood" class="btn">Submit</button>
+      <!-- Display submitted entries -->
     <div class="entries">
       <div v-for="(entry, index) in entries" :key="index" class="entry card">
         <div class="entry-header">
           <img :src="getImageUrl(entry.mood.image)" alt="" class="entry-image">
           <p class="entry-mood">{{ entry.mood.name }}</p>
         </div>
+        <!-- Display the note for each entry -->
         <p>{{ entry.note }}</p>
+        <!-- Button to remove an entry -->
         <button @click="removeEntry(index)" class="remove-btn" title="Delete">✖</button>
       </div>
     </div>
@@ -33,6 +41,7 @@
 export default {
   data() {
     return {
+      // List of mood options with associated images
       moods: [
         { name: 'Happy', image: 'happy.png' },
         { name: 'Confused', image: 'confused.png' },
@@ -40,32 +49,40 @@ export default {
         { name: 'Sad', image: 'sad.png' },
         { name: 'Scared', image: 'scared.png' },
       ],
-      selectedMood: null,
-      moodNote: '',
-      entries: []
+      selectedMood: null, // Currently selected mood
+      moodNote: '', // Note associated with the selected mood
+      entries: [] // List of submitted mood entries
     };
   },
   methods: {
+     // Method to get the URL for an image
     getImageUrl(image) {
       return new URL(`../assets/images/${image}`, import.meta.url).href;
     },
+      // Method to select a mood
     selectMood(moodName) {
       this.selectedMood = moodName;
     },
+     // Method to submit the selected mood and note
     submitMood() {
       if (this.selectedMood && this.moodNote.trim() !== '') {
+         // Find the mood object based on the selected mood name
         const mood = this.moods.find(mood => mood.name === this.selectedMood);
+          // Add the new entry to the list
         this.entries.push({ mood, note: this.moodNote });
+          // Reset selected mood and note
         this.selectedMood = null;
         this.moodNote = '';
       }
     },
+     // Method to remove an entry from the list
     removeEntry(index) {
       this.entries.splice(index, 1);
     }
   }
 };
 </script>
+
 <style scoped>
 .mood-tracker {
   text-align: center;

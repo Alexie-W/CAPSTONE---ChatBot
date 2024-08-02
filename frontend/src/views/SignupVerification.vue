@@ -4,6 +4,7 @@
       <img :src="getImageUrl('verificationbot.png')" alt="Avatar" class="avatar">
       <h1>Setting Up Your Profile</h1>
     </header>
+      <!-- Loading section with a spinner and message -->
     <div class="loading-section">
       <div class="loader"></div>
       <p>{{ message }}</p>
@@ -15,12 +16,12 @@
 export default {
   data() {
     return {
-      message: 'Please wait while we set up your profile...'
+      message: 'Please wait while we set up your profile...' // Initial loading message
     };
   },
   mounted() {
     setTimeout(() => {
-      this.message = 'Loading your dashboard...';
+      this.message = 'Loading your dashboard...'; / Update message after profile setup
       setTimeout(() => {
         this.$router.push('/home');
       }, 3000); // Simulate loading time for dashboard
